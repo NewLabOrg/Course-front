@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: 'montserrat';
+    src: local('montserrat'), url('./assets/fonts/Montserrat/static/Montserrat-Regular.ttf') ,
+    format('truetype');
+}
+            
+.font-montserrat {
+    font-family: 'montserrat';
+}
+*body{
+    font-family: 'montserrat';
+}
+.backphoto {
+    background: url('./assets/back1.svg'), no-repeat;
+    background-size: cover;
+    
+
+}
