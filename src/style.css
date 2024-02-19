@@ -18,6 +18,8 @@
 .backphoto {
     background: url('./assets/back1.svg'), no-repeat;
     background-size: cover;
-    
-
+}
+.diag{
+    background: url('./assets/firstBodyPhoto/diag.svg'), no-repeat;
+    background-size: cover;
 }

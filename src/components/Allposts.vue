@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h2>Posts: </h2>
-        <PostList v-if="allPosts && allPosts.length > 0" :posts="allPosts" :showAuthor="showAuthor" />
+    <div class="container mx-auto font-montserrat">
+        <h2 class="font-semibold text-4xl">Проекты : </h2>
+        <PostList class="mt-8 " v-if="allPosts && allPosts.length > 0" :posts="allPosts" :showAuthor="showAuthor" />
     </div>
 </template>
 

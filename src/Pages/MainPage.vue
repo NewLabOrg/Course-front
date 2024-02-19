@@ -8,18 +8,25 @@
                 </div>
             </div>
         </div>
-        <FirstBody />
+        <main class="min-h-screen">
+            <FirstBody />
+        </main>
+        <footer class="mt-4">
+            <Footer />
+        </footer>
     </div>
 </template>
 
 <script>
 import Header from '../components/beaty/Header.vue'
 import FirstBody from '../components/beaty/FirstBody.vue'
+import Footer from '../components/beaty/Footer.vue'
 export default {
     name: 'MainPage',
     components: {
     Header,
-    FirstBody
+    FirstBody,
+    Footer,
     }
 }
 

@@ -1,5 +1,6 @@
 <template>
-    <div v-if="post">
+ <div class="">
+    <div v-if="post" class="">
         <h2>{{ post.title }}: {{ post.subtitle }}</h2>
         <!-- By <AuthorLink :author="post.author" /> -->
         <div> {{ displayableDate(post.published) }} </div>
@@ -15,6 +16,7 @@
             </li>
         </ul>
     </div>
+ </div>
 </template>
 
 <script>
