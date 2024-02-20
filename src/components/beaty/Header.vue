@@ -19,7 +19,7 @@
                     <p class="">Проекты</p>
                 </div>
             </router-link>
-            <router-link class="" to="/">
+            <router-link class="" to="/new">
                 <div class="p-2 hover:border-b border-red-600 transition-colors duration-500 ease-in-out overflow-auto">
                     <p class="">Новости</p>
                 </div>
