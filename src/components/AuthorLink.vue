@@ -2,6 +2,7 @@
     <router-link :to="`/author/${author.user.username}`" >
       {{ displayName  }}
     </router-link>
+    
   </template>
   
   <script>
@@ -19,13 +20,16 @@
       const author = ref(props.author)
 
       const displayName = computed(() => {
-                const user = author.value.user
-                return (
-                    user.firstName &&
-                    user.lastName &&
-                    `${user.firstName} ${user.lastName}`
-                ) || `${user.username}`
-            })
+    if (author.value) {
+        const user = author.value.user
+        return (
+            user?.firstName &&
+            user?.lastName &&
+            `${user.firstName} ${user.lastName}`
+        ) || `${user?.username}`
+    }
+    return '';
+})
       return {
         displayName
       }

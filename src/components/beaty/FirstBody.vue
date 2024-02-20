@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div>
-                <img class="hidden md:block w-96 h-96"
+                <img class="hidden md:block w-96 h-96 opacity-75"
                 src="../../assets/shlogo.svg" alt=""
                 @mousemove="handleMouseMove"
                 :style="imageStyle"
@@ -37,7 +37,7 @@
                     <p class="font-normal text-xs text-center w-48 container mx-auto">Скачивайте ваши отчеты в удобном формате PDF</p>
                 </div>
                 <div class="text-center">
-                    <img class="container mx-auto w-48" src="../../assets/firstBodyPhoto/svc.svg" alt="">
+                    <img class="container mx-auto w-62" src="../../assets/firstBodyPhoto/svc.svg" alt="">
                     <p class="font-medium">CSV Отчеты</p>
                     <p class="font-normal text-xs text-center w-48 container mx-auto">Скачивайте ваши отчеты в удобном формате CSV</p>
                 </div>

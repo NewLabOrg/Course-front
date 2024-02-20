@@ -1,10 +1,10 @@
-<template> 
+<template>
     <div>
         <header>
             <Header />
         </header>
         <main class="min-h-screen">
-            <OneRegistration />
+            <Post />
         </main>
         <footer>
             <Footer />
@@ -15,15 +15,13 @@
 <script>
 import Header from '../components/beaty/Header.vue';
 import Footer from '../components/beaty/Footer.vue';
-import OneRegistration from '../components/Auth/OneRegistration.vue';
+import Post from '../components/Post.vue';
 export default {
-    name: 'Registration',
+    name: 'OnePost',
     components: {
         Header,
         Footer,
-        OneRegistration
+        Post
     }
-    
 }
-
 </script>

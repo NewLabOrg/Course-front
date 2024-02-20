@@ -11,7 +11,7 @@
                 <li class="">Использованные технологии:</li>
                 <li class=""> Vue3 + Vite + Tailwindcss</li>
                 <li class=""> Graphql + Apollo</li>
-                <li>Django</li>
+                <li>Django + Postgress</li>
             </ul>
         </div>
     </div>

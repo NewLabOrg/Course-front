@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Posts in #{{ route.params.tag }}</h2>
+    <h2> <span class="text-3xl font-semibold">Проекты по тегу:</span> <span class="text-xl rounded-2xl border-2 border-black py-1 px-4"> # {{ route.params.tag }}</span></h2>
     <PostList v-if="posts && posts.length" :posts="posts" />
 <div v-if="postsByTag && postsByTag.length">
   

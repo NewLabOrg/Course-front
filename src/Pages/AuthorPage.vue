@@ -1,10 +1,10 @@
-<template> 
+<template>
     <div>
         <header>
             <Header />
         </header>
         <main class="min-h-screen">
-            <OneRegistration />
+            <Author />
         </main>
         <footer>
             <Footer />
@@ -13,17 +13,15 @@
 </template>
 
 <script>
-import Header from '../components/beaty/Header.vue';
-import Footer from '../components/beaty/Footer.vue';
-import OneRegistration from '../components/Auth/OneRegistration.vue';
+import Header from '../components/beaty/Header.vue'
+import Footer from '../components/beaty/Footer.vue'
+import Author from '../components/Author.vue'
 export default {
-    name: 'Registration',
+    name: 'AuthorPage',
     components: {
         Header,
         Footer,
-        OneRegistration
-    }
-    
+        Author
+    }   
 }
-
 </script>
