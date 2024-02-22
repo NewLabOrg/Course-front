@@ -25,7 +25,7 @@ export default {
                     publishDate
                     published
                     metaDescription
-                    image
+                    imageUrl
                     slug
                     author {
                         user {

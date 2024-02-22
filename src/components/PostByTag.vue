@@ -33,6 +33,7 @@ export default defineComponent({
             published
             metaDescription
             slug
+            imageUrl
             author {
               user {
                 username

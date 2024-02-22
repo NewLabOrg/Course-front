@@ -13,6 +13,7 @@ import OnePost from './Pages/OnePost.vue'
 import About from './Pages/About.vue'
 import AuthorPage from './Pages/AuthorPage.vue'
 import News from './Pages/News.vue'
+import OneNew from './Pages/OneNew.vue'
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import './style.css'
@@ -32,7 +33,8 @@ const router = createRouter({
         { path: '/tag/:tag', component: TagPost },
         { path: '/registration', component: Registration },
         { path: '/about', component: About },
-        { path: '/new', component: News }
+        { path: '/new', component: News },
+        { path: '/new/:slug', component: OneNew },
     ]
 })
 
