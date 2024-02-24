@@ -23,7 +23,6 @@
                                                 </router-link>
                                             </p>
                                         </div>
-
                                     </div>
                                     <div class="mt-2">
                                         <p class="font-medium text-base ">

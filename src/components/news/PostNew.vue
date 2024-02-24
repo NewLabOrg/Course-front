@@ -7,6 +7,7 @@
                 </div>
                 <div class="">
                     <h2 class="font-extrabold text-2xl">{{ news.title }}</h2>
+                        <p>{{ news.subtitle }}</p>
                     </div>
             </div>
         </div>

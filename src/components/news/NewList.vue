@@ -13,7 +13,7 @@
                         <router-link :to="`/new/${news.slug}`">
                             <div class="text-white mt-8
                             bg-red-600 rounded-sm p-2 mt-4">
-                                <p class="text-center">Читать</p>
+                                <p class="text-center hover:underline">Читать</p>
                             </div>
                         </router-link>
                     </div>
@@ -24,7 +24,8 @@
 </template>
 
 <script>
-    import { useQuery } from '@vue/apollo-composable'
+    import { logMissingFieldErrors } from '@apollo/client/core/ObservableQuery'
+import { useQuery } from '@vue/apollo-composable'
     import  gql  from 'graphql-tag'
     import { ref, computed } from 'vue'
 
@@ -43,7 +44,7 @@
                 }
             `)
             const getNews = computed(() => result.value?.getNews || [])
-
+                console.log(getNews.value);
             return {
                 getNews
             }   
