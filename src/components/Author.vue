@@ -49,7 +49,7 @@
         </div>
         <aside class="border-l-2  w-96 p-4">
             <div class="relative w-24 h-24 container mx-auto overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                <!-- <img :src="post.profile_pic" :alt="displayName"> -->
+                <!-- <img :src="post.profile_picUrl" :alt="displayName"> -->
             </div>
             <h2 class="text-center text-xl font-medium border-b-2 pb-2">{{ displayName }}</h2>
             <div>
@@ -81,30 +81,30 @@ export default {
         const route = useRoute()
         const username = ref(route.params.username)
         const { result, refetch } = useQuery(gql`
-                query ($username: String!) {
-                    authorByUsername(username: $username) {
-                        website
-                        bio
-                        user {
-                            firstName
-                            lastName
-                            username
-                        }
-                        # profile_pic
-                        postSet {
-                            title
-                            subtitle
-                            publishDate
-                            published
-                            imageUrl
-                            metaDescription
-                            slug
-                            tags {
-                                name
-                            }
-                        }
-                    }
-                }
+            query AuthorByUsername($username: String!) {
+  authorByUsername(username: $username) {
+    website
+    bio
+    user {
+      firstName
+      lastName
+      username
+    }
+
+    postSet {
+      title
+      subtitle
+      publishDate
+      published
+      imageUrl
+      metaDescription
+      slug
+      tags {
+        name
+      }
+    }
+  }
+}
             `, {
             username: username.value
         })

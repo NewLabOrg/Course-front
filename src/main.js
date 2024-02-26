@@ -14,14 +14,20 @@ import About from './Pages/About.vue'
 import AuthorPage from './Pages/AuthorPage.vue'
 import News from './Pages/News.vue'
 import OneNew from './Pages/OneNew.vue'
+import Profile from './Pages/Profile.vue'
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 import { DefaultApolloClient } from '@vue/apollo-composable'
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import { createPinia, PiniaVuePlugin } from 'pinia'
+import { useStore } from './store/store'
 import './style.css'
 
 const apolloClient = new ApolloClient({
     uri: 'http://127.0.0.1:8000/graphql/',
     cache: new InMemoryCache(),
 })
+
+// const store = useStore()
 
 const router = createRouter({
     history: createWebHistory(),
@@ -35,10 +41,29 @@ const router = createRouter({
         { path: '/about', component: About },
         { path: '/new', component: News },
         { path: '/new/:slug', component: OneNew },
+        { path: '/profile/:id', component: Profile, meta: { requiresAuth: true }  },
     ]
 })
+router.beforeEach((to, from, next) => {
+    const store = useStore()
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!store.token) {
+        next({
+          path: '/registration',
+          query: { redirect: to.fullPath }
+        });
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+});
+const pinia = createPinia()
 
 createApp(App)
     .provide(DefaultApolloClient, apolloClient)
+    .use(autoAnimatePlugin)
+    .use(pinia)
     .use(router)
     .mount('#app')

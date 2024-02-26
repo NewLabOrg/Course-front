@@ -26,7 +26,7 @@
             </router-link>
             <router-link to="/registration">
                 <div class="text-white mx-4 bg-red-600 rounded-sm">
-                    <p class="p-2">Зарегистрироваться</p>
+                    <p class="p-2">Создать свой профиль</p>
                 </div>
             </router-link>
         </div>
