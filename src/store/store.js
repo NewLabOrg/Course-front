@@ -12,7 +12,7 @@ export const useStore = defineStore({
         website: '',
         bio: '',
         token: '',
-        isAuth: false
+        isAuth: false,
     }),
     actions: {
         setUsername(username) {

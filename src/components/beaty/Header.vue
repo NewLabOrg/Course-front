@@ -2,10 +2,7 @@
     <div class="container mx-auto my-6 font-montserrat flex justify-between border-b">
         <router-link to="/">
                 <div class="relative my-2">
-                   
-
                         <img class="my-2 animate-pulse" src="../../assets/icon.svg" alt="">
-
                 </div>
         </router-link>
         <div class="hidden sm:flex my-4  justify-between">
@@ -24,17 +21,50 @@
                     <p class="">Новости</p>
                 </div>
             </router-link>
-            <router-link to="/registration">
+     
+            <div class="cursor-pointer" v-if="!isAuth" @click="toggleVisible">
+           
                 <div class="text-white mx-4 bg-red-600 rounded-sm">
                     <p class="p-2">Создать свой профиль</p>
                 </div>
-            </router-link>
+                <div v-if="visible" class="bg-white absolute p-4 mt-2 border-2 rounded-xl modal">
+                    <router-link class="py-2" to="/registration">
+                        <p class="link my-2">Создать свой профиль</p>
+                    </router-link>
+                    <router-link class="py-2" to="/Auth">
+                        <p class="link my-2">Войти</p>
+                    </router-link>
+                </div>
+            </div>
+
+            <ProfileLink v-else />
         </div>
+
     </div>
 </template>
 
 <script>
+import ProfileLink from './ProfileLink.vue'
+import { useStore }  from '../../store/store'
+import { computed } from 'vue'
+import { ref } from 'vue'
 export default {
     name: 'Header',
+    components: {
+        ProfileLink
+    },
+    setup() {
+        const store = useStore();
+        const isAuth = computed(() => store.isAuth);
+        const visible = ref(false);
+        const toggleVisible = () => {
+            visible.value = !visible.value;
+        }
+        return {
+            isAuth,
+            visible,
+            toggleVisible
+        }
+    }
 }
 </script>

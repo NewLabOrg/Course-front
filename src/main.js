@@ -15,6 +15,7 @@ import AuthorPage from './Pages/AuthorPage.vue'
 import News from './Pages/News.vue'
 import OneNew from './Pages/OneNew.vue'
 import Profile from './Pages/Profile.vue'
+import Auth from './Pages/Auth.vue'
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
@@ -41,6 +42,7 @@ const router = createRouter({
         { path: '/about', component: About },
         { path: '/new', component: News },
         { path: '/new/:slug', component: OneNew },
+        { path: '/auth', component: Auth},
         { path: '/profile/:id', component: Profile, meta: { requiresAuth: true }  },
     ]
 })
@@ -64,6 +66,7 @@ const pinia = createPinia()
 createApp(App)
     .provide(DefaultApolloClient, apolloClient)
     .use(autoAnimatePlugin)
+    .use(createPinia())
     .use(pinia)
     .use(router)
     .mount('#app')
