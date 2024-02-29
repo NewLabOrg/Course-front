@@ -4,15 +4,15 @@ import { defineStore } from "pinia";
 export const useStore = defineStore({
     id: 'main',
     state: () => ({
-        username: '',
+        username: localStorage.getItem('username') || '',
         email: '',
         password: '',
         firstname: '',
         lastname: '',
         website: '',
         bio: '',
-        token: '',
-        isAuth: false,
+        token: localStorage.getItem('token') || '',
+        isAuth: localStorage.getItem('token') ? true : false,
     }),
     actions: {
         setUsername(username) {
@@ -38,9 +38,14 @@ export const useStore = defineStore({
         },
         setToken(token) {
             this.token = token
+            localStorage.setItem('token', token)
+            this.isAuth = true
         },
         setIsAuth(isAuth) {
             this.isAuth = isAuth
+            if(!isAuth) {
+                localStorage.removeItem('token')
+            }
         }
     }
 })

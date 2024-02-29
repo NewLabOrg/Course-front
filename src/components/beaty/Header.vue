@@ -28,16 +28,16 @@
                     <p class="p-2">Создать свой профиль</p>
                 </div>
                 <div v-if="visible" class="bg-white absolute p-4 mt-2 border-2 rounded-xl modal">
-                    <router-link class="py-2" to="/registration">
+                    <router-link class="py-2 logout-button" to="/registration">
                         <p class="link my-2">Создать свой профиль</p>
                     </router-link>
-                    <router-link class="py-2" to="/Auth">
+                    <router-link class="py-2 logout-button" to="/Auth">
                         <p class="link my-2">Войти</p>
                     </router-link>
                 </div>
             </div>
 
-            <ProfileLink v-else />
+            <ProfileLink v-else class="my-auto mx-4" />
         </div>
 
     </div>
@@ -68,3 +68,26 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+.logout-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.logout-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: red;
+    transition: width .3s;
+}
+
+.logout-button:hover::after {
+    width: 100%;
+}
+</style>

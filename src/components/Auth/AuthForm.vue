@@ -49,14 +49,16 @@ export default {
       })
     )
 
-    const login = async () => {
+  const login = async () => {
   try {
     const response = await loginMutation()
     if (response.data && response.data.tokenAuth) {
       // Сохраните токен в локальное хранилище или куда-то еще
       localStorage.setItem('authToken', response.data.tokenAuth.token)
+      store.setUsername(username.value);
       store.setToken(response.data.tokenAuth.token);
       store.setIsAuth(true);
+      localStorage.setItem('username', store.username);
       localStorage.setItem('token', response.data.tokenAuth.token);
       localStorage.setItem('isAuth', true);
       router.push(`/profile/${store.username}`); 
