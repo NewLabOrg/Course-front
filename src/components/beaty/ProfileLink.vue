@@ -1,7 +1,7 @@
 <template>
     <div class="font-montserrat relative">   
-        <button id="dropdownUserAvatarButton" @click="toggleDropdown" class="flex text-sm  rounded-full md:me-0   " type="button">
-            <p class="my-auto text- pr-4">{{ username }}</p>
+        <button id="dropdownUserAvatarButton" @click="toggleDropdown" class="flex text-sm border px-2 py-1 rounded-full md:me-0   " type="button">
+            <p class="my-auto text-lg pr-4">{{ username }}</p>
             <img class="w-8 h-8 rounded-full" src="../../assets/no-image.jpg" alt="user photo">
         </button>
     <div v-show="isDropdownVisible" class="z-40 right-0 ml-12 mt-4 absolute bg-white divide-y w-56 divide-gray-100 rounded-lg shadow  dark:bg-gray-700 dark:divide-gray-600">

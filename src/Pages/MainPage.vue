@@ -3,7 +3,7 @@
         <Header />
         <div class="backphoto ">
             <div class="container mx-auto text-left pt-40  pb-44">
-                <div class="w-2/5 bg-black bg-opacity-50 text-white] p-8">
+                <div class="md:w-2/5 bg-black bg-opacity-50 text-white p-8">
                     <p class="text-white pb-12 font-extrabold text-4xl">Разработай свой научный проект и преобрази мир своими исследованиями !</p>
                 </div>
             </div>

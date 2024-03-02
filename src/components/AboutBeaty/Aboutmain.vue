@@ -3,11 +3,11 @@
         <div class="">  
             <img class="conteiner mx-auto" src="../../assets/class.svg" alt="">
 
-            <div class="container px-24 flex justify-between mt-12">
+            <div class="container sm:px-24 flex justify-between mt-12">
                 <div class="">
                     <h1 class="text-4xl font-medium">О нас</h1>
-                    <div class="flex justify-between mt-12">
-                    <div class="w-1/2 font-normal">
+                    <div class="flex sm:justify-between mt-12">
+                    <div class="sm:w-1/2 font-normal">
                         <p >Платформа для Научных Проектов: Раскрытие Потенциала через Онлайн Ресурсы
                     В эпоху цифровой революции и информационного обмена, научные исследования и проекты становятся все более доступными и важными для мирового сообщества. С появлением специализированных онлайн-платформ для размещения научных работ, ученые и исследователи получили новые возможности для распространения своих открытий и взаимодействия с коллегами по всему миру. Одним из таких ключевых ресурсов является</p>
                     <p class="mt-2"><span class="font-semibold text-2xl">Что это такое?</span> <br/>
@@ -41,23 +41,23 @@
         <li>
             <span class="font-medium text-xl">Как использовать </span>
         </li>
-        <li class="py-2">
+        <li class="sm:py-2">
             <span class="font-medium text-xl">Регистрация и создание профиля: </span> <br/> Первым шагом является регистрация на платформе и создание личного профиля, где вы можете указать свои научные интересы, публикации и контактные данные.
         </li>
-        <li class="py-2">
+        <li class="sm:py-2">
             <span class="font-medium text-xl">Публикация проектов: </span> <br/> Загрузите свои научные работы на платформу, следуя инструкциям для добавления метаданных, аннотации и прочих деталей.
         </li>
-        <li class="py-2">
+        <li class="sm:py-2">
             <span class="font-medium text-xl">Взаимодействие с сообществом: </span> <br/> Комментируйте работы других пользователей, обменивайтесь мнениями, задавайте вопросы и ищите партнеров для совместных проектов.
         </li>
-        <li class="py-2">
+        <li class="sm:py-2">
             <span class="font-medium text-xl">Поддержка и продвижение: </span> <br/> Делитесь ссылками на свои публикации на других платформах и социальных сетях, чтобы привлечь больше внимания к вашим исследованиям.
         </li>
     </ul>
                     </div>
                    <div >
-                    <img class="w-96 opacity-50 mt-44" src="../../assets/icon.svg" alt="">
-                    <img class="w-96 opacity-50 mt-64" src="../../assets/icon.svg" alt="">
+                    <img class="hidden sm:block w-96 opacity-50 mt-44" src="../../assets/icon.svg" alt="">
+                    <img class="hidden sm:block w-96 opacity-50 mt-64" src="../../assets/icon.svg" alt="">
                    </div>
 
                 </div>

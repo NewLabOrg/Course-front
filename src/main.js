@@ -22,6 +22,10 @@ import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createPinia, PiniaVuePlugin } from 'pinia'
 import { useStore } from './store/store'
 import './style.css'
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/themes/aura-light-green/theme.css'
+import 'primeicons/primeicons.css'
+
 
 const apolloClient = new ApolloClient({
     uri: 'http://127.0.0.1:8000/graphql/',
@@ -69,4 +73,5 @@ createApp(App)
     .use(createPinia())
     .use(pinia)
     .use(router)
+    .use(PrimeVue)
     .mount('#app')
