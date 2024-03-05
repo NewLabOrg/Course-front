@@ -13,6 +13,7 @@ export const useStore = defineStore({
         bio: '',
         token: localStorage.getItem('token') || '',
         isAuth: localStorage.getItem('token') ? true : false,
+        profilePicUrl: '',
     }),
     actions: {
         setUsername(username) {
@@ -46,6 +47,9 @@ export const useStore = defineStore({
             if(!isAuth) {
                 localStorage.removeItem('token')
             }
-        }
+        },
+        updateProfilePicUrl(url) {
+            this.profilePicUrl = url;
+          },
     }
 })

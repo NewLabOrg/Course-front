@@ -57,62 +57,96 @@
         </transition>
     </div>
 </template>
-
 <script>
 import { ref, onMounted } from 'vue';
 import ThirdRegistration from './ThirdRegistration.vue';
 import { useStore } from '../../store/store';
-export default {
-    name: 'SecondRegistration',
-    props: ['step'],
-    components: {
-        ThirdRegistration
-    },
-    setup(props, { emit }) {
-        const store = useStore();
-        const firsname = ref('');
-        const lastname = ref('');
-        const website = ref('');
-        const bio = ref('');
+import { useMutation } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
 
-        const updateStore = () => {
-            store.setFirstname(firsname.value);
-            store.setLastname(lastname.value);
-            store.setWebsite(website.value);
-            store.setBio(bio.value);
-        }
-
-
-
-        const Nextstep = () => {
-            updateStore();
-            emit('nex-step');
-        };
-
-        const showComponent = ref(false);
-
-        const beforestep = () => {
-            emit('decrement-step');
-        };
-
-        onMounted(() => {
-            setTimeout(() => {
-                showComponent.value = true;
-            }, 1700);
-        });
-
-        return {
-            firsname,
-            lastname,
-            website,
-            bio,
-            beforestep,
-            showComponent,
-            Nextstep
-        }
+const UPLOAD_PROFILE_PIC = gql`
+  mutation UploadProfilePic($file: Upload!) {
+    uploadProfilePic(file: $file) {
+      success
+      url
     }
-}   
+  }
+`;
+
+export default {
+  name: 'SecondRegistration',
+  props: ['step'],
+  components: { ThirdRegistration },
+  setup(props, { emit }) {
+    const store = useStore();
+    const firstname = ref('');
+    const lastname = ref('');
+    const website = ref('');
+    const bio = ref('');
+    const profilePicUrl = ref('');
+    const selectedFile = ref(null); 
+
+    
+    const handleFileChange = (event) => {
+      selectedFile.value = event.target.files[0];
+    };
+
+    const { mutate: uploadProfilePicMutation } = useMutation(UPLOAD_PROFILE_PIC);
+
+    
+    const uploadProfilePic = async () => {
+      if (!selectedFile.value) return;
+      try {
+        const response = await uploadProfilePicMutation({
+          file: selectedFile.value,
+        });
+        if (response.data.uploadProfilePic.success) {
+          profilePicUrl.value = response.data.uploadProfilePic.url;
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    };
+
+    const updateStore = () => {
+      store.setFirstname(firstname.value);
+      store.setLastname(lastname.value);
+      store.setWebsite(website.value);
+      store.setBio(bio.value);
+    };
+
+    const Nextstep = async () => {
+      updateStore();
+      await uploadProfilePic(); 
+      emit('nex-step');
+    };
+
+    const showComponent = ref(false);
+    const beforestep = () => {
+      emit('decrement-step');
+    };
+
+    onMounted(() => {
+      setTimeout(() => {
+        showComponent.value = true;
+      }, 1700);
+    });
+
+    return {
+      firstname,
+      lastname,
+      website,
+      bio,
+      beforestep,
+      showComponent,
+      Nextstep,
+      handleFileChange,
+      profilePicUrl,
+    };
+  },
+};
 </script>
+
 
 <style>
 .fade-enter-active,

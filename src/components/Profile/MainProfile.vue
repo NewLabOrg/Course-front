@@ -4,7 +4,9 @@
         <form @submit.prevent="updateProfile" class="mt-12">
             <div class="sm:flex justify-between">
                 <div class="flex">
-                    <img class="w-44 h-44 rounded-3xl" src="../../assets/no-image.jpg" alt="">
+
+                    <img :src="data.profilePicUrl " alt="Profile Image" class="profile-image">
+                    <!-- <img class="w-44 h-44 rounded-3xl" v-else src="../../assets/no-image.jpg" alt=""> -->
                     <div class="px-4">
                         <p class="text-lg p-1">Nickname:</p>
                         <InputGroup>
@@ -80,6 +82,9 @@
         const store = useStore();
         const username = ref(localStorage.username);
         const isInputFocused = ref(false);
+        const profilePicUrl = ref('');
+
+
         
         const { result, loading, error } = useQuery(gql`
             query($username: String!) {
@@ -90,6 +95,7 @@
                     lastName
                     website
                     bio
+                    # profilePicUrl                   
                 }
             }
         `, {
@@ -97,7 +103,7 @@
         });
 
         const data = computed(() => result.value?.user || {});
-
+        console.log(data);
         const handleFocus = (focused) => {
             isInputFocused.value = focused;
         };

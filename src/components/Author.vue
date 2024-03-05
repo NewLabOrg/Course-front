@@ -1,5 +1,5 @@
 <template>
-    <section class="container mx-auto flex justify-between font-montserrat" v-if="author">
+    <section class="container mx-auto md:flex justify-between font-montserrat" v-if="author">
         <div class="">
             <h3 class="text-xl font-bold"><span class="text-2xl font-bold">Проекты автора:</span> {{ displayName }}</h3>
             <div class="lg:grid grid-cols-2">
@@ -47,9 +47,9 @@
                 </article>
             </div>
         </div>
-        <aside class="border-l-2  w-96 p-4">
+        <aside class="border-l-2  md:w-96 p-4">
             <div class="relative w-24 h-24 container mx-auto overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                <!-- <img :src="post.profile_picUrl" :alt="displayName"> -->
+                <img :src="author.profilePicUrl " :alt="displayName">
             </div>
             <h2 class="text-center text-xl font-medium border-b-2 pb-2">{{ displayName }}</h2>
             <div>
@@ -85,6 +85,7 @@ export default {
   authorByUsername(username: $username) {
     website
     bio
+    # profilePicUrl
     user {
       firstName
       lastName
@@ -131,7 +132,12 @@ export default {
                 posts.value = newValue.authorByUsername.postSet;
             }
         });
-
+                    watch(result, (newValue) => {
+            console.log(newValue); // Добавьте это для отладки
+            if (newValue?.authorByUsername?.postSet) {
+                posts.value = newValue.authorByUsername.postSet;
+            }
+                });
 
         const displayableDate = (dateString) => {
             const date = new Date(dateString);

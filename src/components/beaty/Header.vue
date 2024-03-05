@@ -39,7 +39,14 @@
 
             <ProfileLink v-else class="my-auto mx-4" />
         </div>
-
+        <div @click="toggleMenu" class="sm:hidden cursor-pointer">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </div>
+        <div v-show="menuVisible" class="absolute top-full right-0 bg-white shadow-md rounded-lg p-4" :class="{'menu-enter-active': menuVisible, 'menu-leave-active': !menuVisible}">
+            <p>fwefewfew</p>
+        </div>
     </div>
 </template>
 
@@ -60,10 +67,16 @@ export default {
         const toggleVisible = () => {
             visible.value = !visible.value;
         }
+        const menuVisible = ref(false);
+
+        const toggleMenu = () => {
+            menuVisible.value = !menuVisible.value;
+        };
         return {
             isAuth,
             visible,
-            toggleVisible
+            toggleVisible,
+            toggleMenu
         }
     }
 }

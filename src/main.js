@@ -26,10 +26,12 @@ import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primeicons/primeicons.css'
 
+// const uploadLink = createUploadLink({ uri: 'YOUR_GRAPHQL_ENDPOINT' });
 
 const apolloClient = new ApolloClient({
     uri: 'http://127.0.0.1:8000/graphql/',
     cache: new InMemoryCache(),
+
 })
 
 // const store = useStore()
