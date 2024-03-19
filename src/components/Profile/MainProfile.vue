@@ -5,7 +5,7 @@
             <div class="sm:flex justify-between">
                 <div class="flex">
 
-                    <img :src="data.profilePicUrl " alt="Profile Image" class="profile-image">
+                    <img :src="data.profileImageUrl " alt="Profile Image" class="profile-image">
                     <!-- <img class="w-44 h-44 rounded-3xl" v-else src="../../assets/no-image.jpg" alt=""> -->
                     <div class="px-4">
                         <p class="text-lg p-1">Nickname:</p>
@@ -95,7 +95,7 @@
                     lastName
                     website
                     bio
-                    # profilePicUrl                   
+                    profileImageUrl      
                 }
             }
         `, {

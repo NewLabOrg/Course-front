@@ -41,15 +41,21 @@ import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import { useStore } from '../../store/store';
 import { useRouter } from 'vue-router';
+import { UPLOAD_PROFILE_PIC } from '../helpers/UploadFile';
+import { setMapStoreSuffix } from 'pinia';
+
+
 export default {
     name: 'ThirdRegistration',
     props: ['step'],
     setup(props, { emit }) {
-        const store = useStore();
+        const store = useStore(); 
         const router = useRouter();
-        const beforestep = () => {
-            emit('decrement-step');
-        };
+        const setProfileImageFile = (file) => store.setProfileImageFile(file);
+        const beforestep = () => emit('decrement-step');
+        
+        const { mutate: uploadProfilePicMutation} = useMutation(UPLOAD_PROFILE_PIC)
+
         const { mutate: createUser } = useMutation(
             gql`
                 mutation ($username: String!, $password: String!, $email: String!, $firstname: String!, $lastname: String!, $website: String, $bio: String) {
@@ -105,13 +111,17 @@ export default {
                 username: store.username
             }
         }));
+        console.log(setProfileImageFile())
+
         const registerAndAuthenticate = async () => {
         try {
+            const store = useStore();
             const userExists = await checkUserExists();
             if (userExists.data && userExists.data.user) {
                 throw new Error('User already exists');
             }
             await createUser();
+
             const response = await tokenAuth();
             if(response.data && response.data.tokenAuth.token){
                 store.setUsername(store.username);
@@ -120,15 +130,24 @@ export default {
                 localStorage.setItem('username', store.username);
                 localStorage.setItem('token', response.data.tokenAuth.token);
                 localStorage.setItem('isAuth', true);
-                router.push(`/profile/${store.username}`); 
+                // await store.uploadProfilePic();
+                // await handleUpload(file)
+                router.push(`/profile/${store.username}`);
+       
+              
+                    await store.uploadProfilePic();
             }
+  
+            
         } catch (error) {
             console.log(error);
         }
     };
+
         return {
             beforestep,
-            registerAndAuthenticate
+            registerAndAuthenticate,
+            setProfileImageFile
         }
     }
 }

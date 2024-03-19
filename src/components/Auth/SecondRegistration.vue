@@ -61,17 +61,18 @@
 import { ref, onMounted } from 'vue';
 import ThirdRegistration from './ThirdRegistration.vue';
 import { useStore } from '../../store/store';
-import { useMutation } from '@vue/apollo-composable';
-import gql from 'graphql-tag';
+// import { useMutation } from '@vue/apollo-composable';
+// import gql from 'graphql-tag';
+import { UPLOAD_PROFILE_PIC } from '../../store/store';
 
-const UPLOAD_PROFILE_PIC = gql`
-  mutation UploadProfilePic($file: Upload!) {
-    uploadProfilePic(file: $file) {
-      success
-      url
-    }
-  }
-`;
+// const UPLOAD_PROFILE_PIC = gql`
+//   mutation UploadProfilePic($file: Upload!) {
+//     uploadProfilePic(file: $file) {
+//       success
+//       url
+//     }
+//   }
+// `;
 
 export default {
   name: 'SecondRegistration',
@@ -85,28 +86,34 @@ export default {
     const bio = ref('');
     const profilePicUrl = ref('');
     const selectedFile = ref(null); 
-
+    
     
     const handleFileChange = (event) => {
-      selectedFile.value = event.target.files[0];
+        const file = event.target.files[0];
+        if (file) {
+            const store = useStore();
+            store.setProfileImageFile(file); 
+        }
+        
+    //   selectedFile.value = event.target.files[0];
     };
 
-    const { mutate: uploadProfilePicMutation } = useMutation(UPLOAD_PROFILE_PIC);
+    // const { mutate: uploadProfilePicMutation } = useMutation(UPLOAD_PROFILE_PIC);
 
     
-    const uploadProfilePic = async () => {
-      if (!selectedFile.value) return;
-      try {
-        const response = await uploadProfilePicMutation({
-          file: selectedFile.value,
-        });
-        if (response.data.uploadProfilePic.success) {
-          profilePicUrl.value = response.data.uploadProfilePic.url;
-        }
-      } catch (error) {
-        console.error('Error uploading file:', error);
-      }
-    };
+    // const uploadProfilePic = async () => {
+    //   if (!selectedFile.value) return;
+    //   try {
+    //     const response = await uploadProfilePicMutation({
+    //       file: selectedFile.value,
+    //     });
+    //     if (response.data.uploadProfilePic.success) {
+    //       profilePicUrl.value = response.data.uploadProfilePic.url;
+    //     }
+    //   } catch (error) {
+    //     console.error('Error uploading file:', error);
+    //   }
+    // };
 
     const updateStore = () => {
       store.setFirstname(firstname.value);
@@ -117,7 +124,7 @@ export default {
 
     const Nextstep = async () => {
       updateStore();
-      await uploadProfilePic(); 
+
       emit('nex-step');
     };
 
