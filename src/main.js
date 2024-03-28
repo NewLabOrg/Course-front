@@ -2,11 +2,7 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import MainPage from './Pages/MainPage.vue'
-import Post from './components/Post.vue'
 import AllPost from './Pages/AllPost.vue'
-import Author from './components/Author.vue'
-import PostsByTag from './components/PostByTag.vue'
-import AllPosts from './components/AllPosts.vue'
 import Registration from './Pages/Registration.vue'
 import TagPost from './Pages/TagPost.vue'
 import OnePost from './Pages/OnePost.vue'
@@ -16,31 +12,33 @@ import News from './Pages/News.vue'
 import OneNew from './Pages/OneNew.vue'
 import Profile from './Pages/Profile.vue'
 import Auth from './Pages/Auth.vue'
+import CreateNewPost from './Pages/CreateNewPost.vue'
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
-import { createPinia, PiniaVuePlugin } from 'pinia'
+import { createPinia } from 'pinia'
 import { useStore } from './store/store'
 import './style.css'
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primeicons/primeicons.css'
+import {  createHttpLink } from '@apollo/client/core'
 
-// const uploadLink = createUploadLink({ uri: 'YOUR_GRAPHQL_ENDPOINT' });
 
-const apolloClient = new ApolloClient({
-    uri: 'http://127.0.0.1:8000/graphql/',
-    cache: new InMemoryCache(),
-
+const httpLink = createHttpLink({
+  uri: 'http://127.0.0.1:8000/graphql/',
 })
-
-// const store = useStore()
+const cache = new InMemoryCache()
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache,
+})
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '', component: MainPage },
-        {path:'/allpost', component: AllPost},
+        { path:'/allpost', component: AllPost},
         { path: '/author/:username', component: AuthorPage },
         { path: '/post/:slug', component: OnePost },
         { path: '/tag/:tag', component: TagPost },
@@ -50,6 +48,7 @@ const router = createRouter({
         { path: '/new/:slug', component: OneNew },
         { path: '/auth', component: Auth},
         { path: '/profile/:id', component: Profile, meta: { requiresAuth: true }  },
+        { path: '/createpost', component: CreateNewPost, meta: { requiresAuth: true }},
     ]
 })
 router.beforeEach((to, from, next) => {

@@ -4,11 +4,10 @@
         <form @submit.prevent="updateProfile" class="mt-12">
             <div class="sm:flex justify-between">
                 <div class="flex">
-
-                    <img :src="data.profileImageUrl " alt="Profile Image" class="profile-image">
-                    <!-- <img class="w-44 h-44 rounded-3xl" v-else src="../../assets/no-image.jpg" alt=""> -->
-                    <div class="px-4">
-                        <p class="text-lg p-1">Nickname:</p>
+                    <img v-if="data.profileImageUrl" :src="data.profileImageUrl" alt="Profile Image" class="profile-image object-cover  w-32 h-32 rounded-full">
+                    <img v-else src="../../assets/no-image.jpg" alt="No profile image" class="w-32 h-32 rounded-full">
+                    <div class="px-4 ml-12">
+                        <p class="text-lg  p-1">Nickname:</p>
                         <InputGroup>
                             <InputGroupAddon>
                                 <i class="pi pi-at"></i>
@@ -18,13 +17,15 @@
                     </div>
                 </div>
                 <div class="my-6">
-                    <button class="text-white bg-black focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-lg w-full sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-black dark:hover:bg-black dark:focus:ring-black">Создать проект</button>
+                    <router-link to="/createpost">
+                    <p class="text-white bg-black focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-lg w-full sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-black dark:hover:bg-black dark:focus:ring-black">Создать проект</p>
+                    </router-link>
                 </div>
             </div>
             <div class="sm:flex justify-between mt-12">
                 <div>
                     <p class="text-lg p-2">Ваше имя:</p>
-                    <InputGroup>
+                    <InputGroup class="">
                         <InputGroupAddon>
                             <i class="pi pi-user"></i>
                         </InputGroupAddon>

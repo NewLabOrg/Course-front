@@ -2,7 +2,8 @@
     <div class="font-montserrat relative">   
         <button id="dropdownUserAvatarButton" @click="toggleDropdown" class="flex text-sm border px-2 py-1 rounded-full md:me-0   " type="button">
             <p class="my-auto text-lg pr-4">{{ username }}</p>
-            <img class="w-8 h-8 rounded-full" src="../../assets/no-image.jpg" alt="user photo">
+            <img v-if="profileImageUrl" :src="profileImageUrl" alt="Profile Image" class="profile-image object-cover  w-9 h-9 rounded-full">
+            <img v-else src="../../assets/no-image.jpg" alt="No profile image" class="w-8 h-8 rounded-full">
         </button>
     <div v-show="isDropdownVisible" class="z-40 right-0 ml-12 mt-4 absolute bg-white divide-y w-56 divide-gray-100 rounded-lg shadow  dark:bg-gray-700 dark:divide-gray-600">
         <div class="px-2 py-3 text-sm text-gray-900 dark:text-white">
@@ -11,7 +12,7 @@
         </div>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
             <li>
-                <router-link to="/" class="block px-4 py-2 logout-button dark:hover:text-white">Создать проект</router-link>
+                <router-link to="/createpost" class="block px-4 py-2 logout-button dark:hover:text-white">Создать проект</router-link>
             </li>
             <li>
                 <router-link :to="`/profile/${username}`" class="block px-4 py-2 logout-button dark:hover:text-white">Профиль</router-link>
@@ -49,10 +50,12 @@ export default {
             query ($username: String!) {
                 user(username: $username) {
                     email
+                    profileImageUrl  
                 }
             }`, { username: store.username });
 
         const getEmail = computed(() => loading.value ? '' : result.value?.user?.email || '');  
+        const profileImageUrl = computed(() => result.value?.user?.profileImageUrl || '../../assets/no-image.jpg');
         console.log(result.value)
         const logout = async() => {
             console.log('logout');
@@ -69,7 +72,8 @@ export default {
             logout,
             toggleDropdown,
             isDropdownVisible,
-            getEmail
+            getEmail,
+            profileImageUrl 
         }
     }
 }

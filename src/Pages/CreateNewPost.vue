@@ -3,7 +3,7 @@
         <Header />
     </header>
     <main class="min-h-screen">
-        
+        <NewPost />
     </main>
     <footer>
         <Footer />
@@ -14,11 +14,13 @@
 <script>
 import Header from '../components/beaty/Header.vue';
 import Footer from '../components/beaty/Footer.vue'
+import NewPost from '../components/NewPost/NewPost.vue'
     export default {
-        name: 'CreatNewPost',
+        name: 'CreateNewPost',
         components: {
             Header,
-            Footer
+            Footer,
+            NewPost
         }
     }
 </script>

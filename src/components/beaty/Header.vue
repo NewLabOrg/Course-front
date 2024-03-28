@@ -22,7 +22,7 @@
                 </div>
             </router-link>
      
-            <div class="cursor-pointer" v-if="!isAuth" @click="toggleVisible">
+            <div class="cursor-pointer z-50" v-if="!isAuth" @click="toggleVisible">
            
                 <div class="text-white mx-4 bg-red-600 rounded-sm">
                     <p class="p-2">Создать свой профиль</p>
