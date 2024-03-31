@@ -17,9 +17,9 @@
                     </div>
                 </div>
                 <div class="my-6">
-                    <router-link to="/createpost">
+                    <div @click="navigateToCreatePostWithId">
                     <p class="text-white bg-black focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-lg w-full sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-black dark:hover:bg-black dark:focus:ring-black">Создать проект</p>
-                    </router-link>
+                    </div>
                 </div>
             </div>
             <div class="sm:flex justify-between mt-12">
@@ -65,11 +65,12 @@
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import InputText from 'primevue/inputtext'; 
-    import { ref } from 'vue';
+    import { ref  } from 'vue';
     import gql from 'graphql-tag'
     import { useQuery } from '@vue/apollo-composable';
     import { computed } from 'vue';
     import Editor from 'primevue/editor';
+    import { useRouter } from 'vue-router';
 
     export default {
     name: 'MainProfile',
@@ -84,8 +85,14 @@
         const username = ref(localStorage.username);
         const isInputFocused = ref(false);
         const profilePicUrl = ref('');
+        const router = useRouter();
 
+        const generateDynamicId = () => `post-${Date.now()}`;
 
+        const navigateToCreatePostWithId = () => {
+        const dynamicId = generateDynamicId();
+        router.push({ path: `/createpost/${dynamicId}` });
+        };
         
         const { result, loading, error } = useQuery(gql`
             query($username: String!) {
@@ -113,7 +120,8 @@
             username,
             data,
             isInputFocused,
-            handleFocus
+            handleFocus,
+            navigateToCreatePostWithId 
         };
     }
 }

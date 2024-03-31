@@ -12,7 +12,7 @@
         </div>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
             <li>
-                <router-link to="/createpost" class="block px-4 py-2 logout-button dark:hover:text-white">Создать проект</router-link>
+                <p @click="navigateToCreatePostWithId" class="block px-4 py-2 logout-button dark:hover:text-white">Создать проект</p>
             </li>
             <li>
                 <router-link :to="`/profile/${username}`" class="block px-4 py-2 logout-button dark:hover:text-white">Профиль</router-link>
@@ -28,7 +28,7 @@
 
 <script>
 import { useStore } from '../../store/store'
-import { nextTick, ref } from 'vue'
+import { nextTick, ref  } from 'vue'
 import { useRouter } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
@@ -40,6 +40,7 @@ export default {
         const router = useRouter();
         const username = store.username;
         const isDropdownVisible = ref(false);
+        
 
         const toggleDropdown = () => {
             isDropdownVisible.value = !isDropdownVisible.value;
@@ -67,13 +68,21 @@ export default {
             router.push('/');
         }
 
+        function generateDynamicId() {
+              return `post-${Date.now()}`;
+        }
+        const navigateToCreatePostWithId = () => {
+        const dynamicId = generateDynamicId();  
+        router.push({ name: 'CreateNewPost', params: { id: dynamicId } });
+        };
         return {
             username,
             logout,
             toggleDropdown,
             isDropdownVisible,
             getEmail,
-            profileImageUrl 
+            profileImageUrl,
+            navigateToCreatePostWithId
         }
     }
 }

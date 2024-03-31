@@ -6,7 +6,7 @@
                     <div>
                         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Введите
                             ваше имя</label>
-                        <input type="text" id="first_name" v-model="firsname"
+                        <input type="text" id="first_name" v-model="firstname"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-72 sm:w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-black dark:focus:border-black"
                             placeholder="Иван" required />
                     </div>
@@ -49,9 +49,9 @@
                     <p @click="beforestep"
                         class="focus:ring-4 bg-gray-300 text-gray-10 cursor-pointer focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto my-2 px-5 py-2.5 text-center">
                         Вернуться назад</p>
-                    <button @click="Nextstep" type="submit"
-                        class="text-white bg-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Следующий
-                        шаг</button>
+                    <p @click="Nextstep" type="submit"
+                        class="text-white bg-black cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Следующий
+                        шаг</p>
                 </div>
             </form>
         </transition>
@@ -64,7 +64,7 @@
 import { ref, onMounted } from 'vue';
 import ThirdRegistration from './ThirdRegistration.vue';
 import { useStore } from '../../store/store';
-import { UPLOAD_PROFILE_PIC } from '../../store/store';
+
 
 
 export default {
@@ -78,7 +78,7 @@ export default {
     const website = ref('');
     const bio = ref('');
     const profilePicUrl = ref('');
-    const selectedFile = ref(null);
+
     
     
     const handleFileChange = (event) => {
@@ -99,7 +99,7 @@ export default {
 
     const Nextstep = async () => {
       updateStore();
-      emit('nex-step');
+      emit('next-step');
     };
 
     const showComponent = ref(false);

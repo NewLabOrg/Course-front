@@ -27,6 +27,9 @@ import {  createHttpLink } from '@apollo/client/core'
 
 const httpLink = createHttpLink({
   uri: 'http://127.0.0.1:8000/graphql/',
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}` || "",
+  },
 })
 const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
@@ -48,7 +51,7 @@ const router = createRouter({
         { path: '/new/:slug', component: OneNew },
         { path: '/auth', component: Auth},
         { path: '/profile/:id', component: Profile, meta: { requiresAuth: true }  },
-        { path: '/createpost', component: CreateNewPost, meta: { requiresAuth: true }},
+        { path: '/createpost/:id', name: 'CreateNewPost', component: CreateNewPost, meta: { requiresAuth: true }},
     ]
 })
 router.beforeEach((to, from, next) => {
@@ -68,11 +71,12 @@ router.beforeEach((to, from, next) => {
 });
 const pinia = createPinia()
 
-createApp(App)
-    .provide(DefaultApolloClient, apolloClient)
-    .use(autoAnimatePlugin)
-    .use(createPinia())
-    .use(pinia)
-    .use(router)
-    .use(PrimeVue)
-    .mount('#app')
+const app = createApp(App)
+  .use(autoAnimatePlugin)
+  .use(pinia)
+  .use(router)
+  .use(PrimeVue)
+
+app.provide(DefaultApolloClient, apolloClient)
+
+app.mount('#app')
