@@ -13,7 +13,10 @@
                     <label for="tags" class="text-lg font-semibold">Тег</label>
                     <input type="text" id="tags" v-model="tag" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" placeholder="Тег">
                 </div>
-               
+                <div class="flex flex-col mt-6 ml-12">
+                    <label for="tags" class="text-lg font-semibold">Тег</label>
+                    <input type="text" id="tags" v-model="metaDescription" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" placeholder="Тег">
+                </div>
           </div>
           <div class="flex flex-col mt-6 ">
                     <label for="subtitle" class="text-lg font-semibold">Тема проекта</label>
@@ -28,109 +31,134 @@
                     <input type="file" id="image" @change="handleFileUpload($event)" style="display: none;">
                     <span v-if="!imageFile">{{ imagePlaceholder }}</span>
                     <span v-else>{{ imageFile.name }}</span>
-                </label>
-   
-                
+                </label>                
             </div>
             </div>
-       
-          
             <div class="flex flex-col mt-6">
                 <label for="description" class="text-lg font-semibold">Описание проекта</label>
-                <textarea id="text" v-model="text" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" rows="10" placeholder="Введите текст"></textarea>
+                <textarea id="text" v-model="body" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" rows="10" placeholder="Введите текст"></textarea>
             </div>
-        <button type="submit"   class="bg-black text-white rounded-lg  p-2.5 mt-6 cursor-pointer w-96 justify-right  text-center">Создать проект </button>
+  
+<button type="submit" @click="handleSubmit" class="bg-black text-white rounded-lg p-2.5 mt-6 cursor-pointer w-96 justify-right text-center">Создать проект</button>
+
           
         </form>
     </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import gql from 'graphql-tag';
 import { useMutation } from '@vue/apollo-composable';
-import { useRoute } from 'vue-router';
-
-
-const UPDATE_POST = gql`
-mutation UpdatePost($id: ID!, $title: String, $subtitle: String, $body: String, $metaDescription: String, $publishDate: DateTime, $published: Boolean, $image: Upload, $author: ID, $tags: [ID]) {
-  updatePost(id: $id, title: $title, subtitle: $subtitle, body: $body, metaDescription: $metaDescription, publishDate: $publishDate, published: $published, image: $image, author: $author, tags: $tags) {
-    post {
-      id
-      title
-      subtitle
-      body
-      metaDescription
-      publishDate
-      published
-      image
-      author {
-        id
-      }
-      tags {
-        id
-      }
-    }
-  }
-}
-`;
+import { useRouter } from 'vue-router';
 
 export default {
-    name: 'NewPost',
-    setup() {
-        const imageFile = ref(null);
-        const imagePlaceholder = 'Добавьте изображение';
-        const imagePreview = ref(null);
-        const tag = ref('');
-        const body = ref('');
-        const title = ref('');
-        const subtitle = ref('');
-        const route = useRoute();
+  name: 'NewPost',
+  setup() {
+    const title = ref('');
+    const subtitle = ref('');
+    const body = ref('');
+    const metaDescription = ref(''); 
+    const publishDate = ref('');
+    const published = ref(false);
+    const imageFile = ref(null);
+    const tag = ref('');
+    const imagePlaceholder = 'Добавьте изображение';
+    const imagePreview = ref('');
+    const router = useRouter();
+    
 
-        const postId = computed(() => route.params.id);       
-        const author = localStorage.getItem('username');
-        const today = new Date().toISOString().split('T')[0];
-        const { mutate: updatePost } = useMutation(UPDATE_POST);
+    const handleFileUpload = event => {
+        imageFile.value = event.target.files[0];
+        imagePreview.value = URL.createObjectURL(imageFile.value);
+    };
 
-        const handleFileUpload = event => {
-            imageFile.value = event.target.files[0];
-            imagePreview.value = URL.createObjectURL(imageFile.value);
-        };
+    const handleSubmit = async () => {
+    const formData = new FormData();
 
-        if(postId.value) {
-                variables.id = postId.value;
+    const authorUsername = localStorage.getItem('username');
+    const slug = title.value.toLowerCase().replace(/[\s]+/g, '-').replace(/[^a-z0-9\-]/g, '');
+    const variables = {
+        title: title.value,
+        subtitle: subtitle.value,
+        body: body.value,
+        slug: slug,
+        image: null,
+        tags: tag.value ? tag.value.split(',').map(t => t.trim()) : [],
+        authorUsername: localStorage.getItem('username'),
+    };
+
+    formData.append('operations', JSON.stringify({
+      query: `mutation CreatePost($title: String!, $subtitle: String!, $body: String!,  $authorUsername: String!, $image: Upload, $tags: [String]) {
+        createPost(
+          title: $title,
+          subtitle: $subtitle,
+          body: $body,
+          authorUsername: $authorUsername,
+          image: $image,
+          tags: $tags
+        ) {
+          post {
+            id
+            title
+            subtitle
+            body
+            slug
+            image
+            author {
+              id
             }
+            tags {
+              id
+            }
+          }
+        }
+      }`,
+      variables: {...variables, image: null} 
+    }));
 
-            let variables = {
-    title: title.value,
-    subtitle: subtitle.value,
-    body: body.value,
-    tag: tag.value,
-    image: imageFile.value,
-    metaDescription: '', 
-    publishDate: today,
-    published: true, 
-    author: author,
-    tags: [tag.value], 
-  };
+    formData.append('map', JSON.stringify({
+      "0": ["variables.image"]
+    }));
 
-        const handleSubmit = async () => {
-            await updatePost({
-                variables
-            });
-        };
+    formData.append('0', imageFile.value);
 
-        return {
-            imageFile,
-            imagePlaceholder,
-            handleFileUpload,
-            imagePreview,
-            tag,
-            body,
-            title,
-            subtitle,
-            handleSubmit
-        };
+    try {
+    
+      const response = await fetch('http://127.0.0.1:8000/graphql/', {
+        method: 'POST',
+        body: formData,
+
+      });
+
+    
+      const result = await response.json();
+      if(result) {
+        router.push(`/post/${result.data.createPost.post.slug}`);
+      } else {
+        
+      }
+      console.log('Mutation response:', result);
+    } catch (error) {
+      console.error('Mutation error:', error);
     }
+};
+
+
+    return {
+        imageFile,
+        imagePlaceholder,
+        handleFileUpload,
+        imagePreview,
+        tag,
+        body,
+        title,
+        subtitle,
+        metaDescription,
+        publishDate,
+        published,
+        handleSubmit
+    };
+  }
 }
 </script>

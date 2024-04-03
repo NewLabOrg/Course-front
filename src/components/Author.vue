@@ -49,7 +49,7 @@
         </div>
         <aside class="border-l-2  md:w-96 p-4">
             <div class="relative w-24 h-24 container mx-auto overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                <img :src="author.profilePicUrl " :alt="displayName">
+                <img  :src="profileImageUrl " :alt="displayName">
             </div>
             <h2 class="text-center text-xl font-medium border-b-2 pb-2">{{ displayName }}</h2>
             <div>
@@ -85,11 +85,12 @@ export default {
   authorByUsername(username: $username) {
     website
     bio
-    # profilePicUrl
+  
     user {
       firstName
       lastName
       username
+      profileImageUrl
     }
 
     postSet {
@@ -113,7 +114,9 @@ export default {
         const author = computed(() => result.value?.authorByUsername || {})
         const posts = computed(() => author.value.postSet || [])
         const allPosts = computed(() => result.value?.postSet || [])
-
+        const profileImageUrl = computed(() => {
+            return author.value.user?.profileImageUrl || 'default_profile_image_url_here';
+            })
         const displayName = computed(() => {
             const user = author.value.user
             return (
@@ -133,7 +136,7 @@ export default {
             }
         });
                     watch(result, (newValue) => {
-            console.log(newValue); // Добавьте это для отладки
+            console.log(newValue); 
             if (newValue?.authorByUsername?.postSet) {
                 posts.value = newValue.authorByUsername.postSet;
             }
@@ -150,7 +153,8 @@ export default {
             displayName,
             result,
             allPosts,
-            displayableDate
+            displayableDate,
+            profileImageUrl
         }
     }
 }

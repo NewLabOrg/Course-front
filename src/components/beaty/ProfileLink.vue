@@ -12,7 +12,7 @@
         </div>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
             <li>
-                <p @click="navigateToCreatePostWithId" class="block px-4 py-2 logout-button dark:hover:text-white">Создать проект</p>
+                <p @click="navigateToCreatePostWithId" class="block px-4 py-2 cursor-pointer logout-button dark:hover:text-white">Создать проект</p>
             </li>
             <li>
                 <router-link :to="`/profile/${username}`" class="block px-4 py-2 logout-button dark:hover:text-white">Профиль</router-link>
@@ -69,7 +69,7 @@ export default {
         }
 
         function generateDynamicId() {
-              return `post-${Date.now()}`;
+              return `${Date.now()}`;
         }
         const navigateToCreatePostWithId = () => {
         const dynamicId = generateDynamicId();  

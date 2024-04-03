@@ -16,7 +16,7 @@
                         </InputGroup>
                     </div>
                 </div>
-                <div class="my-6">
+                <div class="my-6 cursor-pointer" >
                     <div @click="navigateToCreatePostWithId">
                     <p class="text-white bg-black focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-lg w-full sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-black dark:hover:bg-black dark:focus:ring-black">Создать проект</p>
                     </div>
@@ -87,7 +87,7 @@
         const profilePicUrl = ref('');
         const router = useRouter();
 
-        const generateDynamicId = () => `post-${Date.now()}`;
+        const generateDynamicId = () => `${Date.now()}`;
 
         const navigateToCreatePostWithId = () => {
         const dynamicId = generateDynamicId();
