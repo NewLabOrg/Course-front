@@ -5,7 +5,7 @@
             <div class=" m-4 " v-for="news in getNews" :key="news.title">
                 <div class="container mx-auto  p-4 rounded-xl border-2 mt-12 ">
                     <div class="h-72 overflow-hidden">
-                        <img class="w-96" :src="news.imageUrl" alt="">
+                        <img class="w-full" :src="news.imageUrl" alt="">
                     </div>
                     <div class="">
                         <h2 class="font-extrabold text-2xl">{{ news.title }}</h2>

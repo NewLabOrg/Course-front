@@ -12,7 +12,7 @@
         </article>
         <!-- By <AuthorLink :author="post.author" /> -->
       <div class="md:flex justify-between mt-12 border-t-2">
-        <div class="mt-2" v-for="tag in post.tags" :key="tag.name">
+        <div class="mt-2 w-36 sm:w-max" v-for="tag in post.tags" :key="tag.name">
           <router-link :to="`/tag/${tag.name}`">
              <div class="rounded-xl  bg-black py-2 px-4 text-white hover:px-6 duration-200 ease-in" >
                      # {{ tag.name }}

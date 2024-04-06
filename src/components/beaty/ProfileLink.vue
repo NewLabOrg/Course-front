@@ -1,6 +1,6 @@
 <template>
     <div class="font-montserrat relative">   
-        <button id="dropdownUserAvatarButton" @click="toggleDropdown" class="flex text-sm border px-2 py-1 rounded-full md:me-0   " type="button">
+        <button id="dropdownUserAvatarButton" @click="toggleDropdown" class="sm:flex text-sm sm:border px-2 py-1 sm:rounded-full md:me-0   " type="button">
             <p class="my-auto text-lg pr-4">{{ username }}</p>
             <img v-if="profileImageUrl" :src="profileImageUrl" alt="Profile Image" class="profile-image object-cover  w-9 h-9 rounded-full">
             <img v-else src="../../assets/no-image.jpg" alt="No profile image" class="w-8 h-8 rounded-full">
@@ -8,7 +8,7 @@
     <div v-show="isDropdownVisible" class="z-40 right-0 ml-12 mt-4 absolute bg-white divide-y w-56 divide-gray-100 rounded-lg shadow  dark:bg-gray-700 dark:divide-gray-600">
         <div class="px-2 py-3 text-sm text-gray-900 dark:text-white">
             <div class="text-center font-medium truncate">{{ username }}</div>
-            <div class=" text-center font-medium truncate">{{ getEmail }}</div>
+            <div class="text-center font-medium truncate">{{ getEmail }}</div>
         </div>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
             <li>
@@ -17,7 +17,6 @@
             <li>
                 <router-link :to="`/profile/${username}`" class="block px-4 py-2 logout-button dark:hover:text-white">Профиль</router-link>
             </li>
-    
         </ul>
         <div class="py-2 " @click="logout">
             <p href="#" class="block px-4 py-2 text-sm text-gray-700 logout-button cursor-pointer">Выйти</p>

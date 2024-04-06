@@ -39,15 +39,61 @@
 
             <ProfileLink v-else class="my-auto mx-4" />
         </div>
-        <div @click="toggleMenu" class="sm:hidden cursor-pointer">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
+        <button @click="visible = !visible" class="sticky my-auto mx-4 sm:hidden cursor-pointer">
+    <svg v-if="!visible" class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+    </svg>
+    <svg v-else class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+</button>
+
+<transition name="fade" appear>
+    <div v-if="visible"  class="absolute z-50 mt-20 w-full bg-white shadow-md rounded-lg p-4 transition-all duration-500 ease-in-out" >
+
+        <div class="container w-1/2 mx-auto  ">
+            <router-link class="" to="/about">
+                <div class="p-2 mt-2 border-b  border-red-600 transition ease-linear duration-300 overflow-auto ">
+                    <p class="">О нас</p>
+                </div>
+            </router-link>
+            <router-link class="" to="/allpost">
+                <div class="p-2 mt-2 border-b border-red-600  overflow-auto ">
+                    <p class="">Проекты</p>
+                </div>
+            </router-link>
+            <router-link class="" to="/new">
+                <div class="p-2 mt-2 border-b border-red-600  overflow-auto ">
+                    <p class="">Новости</p>
+                </div>
+            </router-link>
+                <div v-if="!isAuth">
+                    <router-link class="" to="/registration">
+                        <div class="p-2 mt-2 border-b border-red-600  overflow-auto ">
+                            <p class="">Создать свой профиль</p>
+                        </div>
+                            
+                        </router-link>
+                        <router-link class="" to="/Auth">
+                            <div class="p-2 mt-2 border-b border-red-600  overflow-auto ">
+                                <p class="">Войти</p>    
+                            </div>
+                        </router-link>
+                </div>
+            
+                <div v-else>
+                    <router-link :to="`/profile/${username}`">
+                            <div class="p-2 pb-4 mt-2 border-b border-red-600  overflow-auto ">
+                                <p>Профиль</p>
+                            </div>    
+                    </router-link>
+                </div>
+            
         </div>
-        <div v-show="menuVisible" class="absolute top-full right-0 bg-white shadow-md rounded-lg p-4" :class="{'menu-enter-active': menuVisible, 'menu-leave-active': !menuVisible}">
-            <p>fwefewfew</p>
-        </div>
+        
     </div>
+</transition>
+</div>
 </template>
 
 <script>
@@ -64,19 +110,13 @@ export default {
         const store = useStore();
         const isAuth = computed(() => store.isAuth);
         const visible = ref(false);
-        const toggleVisible = () => {
-            visible.value = !visible.value;
-        }
-        const menuVisible = ref(false);
+        const profile = computed (() => localStorage.getItem('username'));
 
-        const toggleMenu = () => {
-            menuVisible.value = !menuVisible.value;
-        };
+
         return {
             isAuth,
             visible,
-            toggleVisible,
-            toggleMenu
+            profile
         }
     }
 }
@@ -102,5 +142,13 @@ export default {
 
 .logout-button:hover::after {
     width: 100%;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
 }
 </style>

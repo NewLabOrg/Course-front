@@ -1,51 +1,51 @@
 <template>
-    <div class="container mx-auto font-montserrat ">
-        <h1 class="font-semibold text-2xl w-9/12">Здесь вы можете создать новый проект, описав главную суть вашего научного проекта  </h1>
-        <form action="" @submit.prevent="handleSubmit">
-            <div class="flex justify-between mt-6 ">
-            <div class="">
-          <div class="flex justify-between">
-            <div class="flex flex-col mt-6 "> 
-                    <label for="title"  class="text-lg font-semibold">Название проекта</label>
-                    <input type="text" v-model="title" id="title" class="border-2 border-gray-300 outline-none rounded-lg p-2.5 mt-2" placeholder="Название проекта">
-                </div>
-                <div class="flex flex-col mt-6 ml-12">
-                    <label for="tags" class="text-lg font-semibold">Тег</label>
-                    <input type="text" id="tags" v-model="tag" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" placeholder="Тег">
-                </div>
-                <div class="flex flex-col mt-6 ml-12">
-                    <label for="tags" class="text-lg font-semibold">Тег</label>
-                    <input type="text" id="tags" v-model="metaDescription" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" placeholder="Тег">
-                </div>
+  <div class="container mx-auto font-montserrat ">
+      <h1 class="font-semibold text-2xl w-full sm:w-9/12">Здесь вы можете создать новый проект, описав главную суть вашего научного проекта  </h1>
+      <form action="" @submit.prevent="handleSubmit">
+          <div class="flex flex-col sm:flex-row justify-between mt-6 ">
+          <div class="">
+        <div class="flex flex-col sm:flex-row justify-between">
+          <div class="flex flex-col mt-6 "> 
+                  <label for="title"  class="text-lg font-semibold">Название проекта</label>
+                  <input type="text" v-model="title" id="title" class="border-2 border-gray-300 outline-none rounded-lg p-2.5 mt-2" placeholder="Название проекта">
+              </div>
+              <div class="flex flex-col mt-6 sm:ml-12">
+                  <label for="tags" class="text-lg font-semibold">Тег</label>
+                  <input type="text" id="tags" v-model="tag" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" placeholder="Тег">
+              </div>
+            
+        </div>
+        <div class="flex flex-col mt-6 ">
+                  <label for="tags" class="text-lg font-semibold">Описание</label>
+                  <input type="text" id="tags" v-model="metaDescription" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" placeholder="Описание">
+              </div>
+        <div class="flex flex-col mt-6 ">
+                  <label for="subtitle" class="text-lg font-semibold">Тема проекта</label>
+                  <input type="text" id="subtitle" v-model="subtitle" class="border-2 border-gray-300 outline-none rounded-lg p-2.5 mt-2" placeholder="Тема проекта">
+              </div>
           </div>
-          <div class="flex flex-col mt-6 ">
-                    <label for="subtitle" class="text-lg font-semibold">Тема проекта</label>
-                    <input type="text" id="subtitle" v-model="subtitle" class="border-2 border-gray-300 outline-none rounded-lg p-2.5 mt-2" placeholder="Тема проекта">
-                </div>
-            </div>
-     
-        <img :src="imagePreview" v-if="imagePreview" class="mt-2 h-64 " />
-                <div class="flex flex-col mt-6 w-96 ">
-                <label for="image" class="text-lg font-semibold">Добавьте изображение</label>
-                <label class="custom-file-upload border-2 border-gray-300 rounded-lg p-2.5 mt-2 cursor-pointer">
-                    <input type="file" id="image" @change="handleFileUpload($event)" style="display: none;">
-                    <span v-if="!imageFile">{{ imagePlaceholder }}</span>
-                    <span v-else>{{ imageFile.name }}</span>
-                </label>                
-            </div>
-            </div>
-            <div class="flex flex-col mt-6">
-                <label for="description" class="text-lg font-semibold">Описание проекта</label>
-                <textarea id="text" v-model="body" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" rows="10" placeholder="Введите текст"></textarea>
-            </div>
-  
-<button type="submit" @click="handleSubmit" class="bg-black text-white rounded-lg p-2.5 mt-6 cursor-pointer w-96 justify-right text-center">Создать проект</button>
+   
+      <img :src="imagePreview" v-if="imagePreview" class="mt-2 h-64 w-full sm:w-auto" />
+              <div class="flex flex-col mt-6 w-full sm:w-96 ">
+              <label for="image" class="text-lg font-semibold">Добавьте изображение</label>
+              <label class="custom-file-upload border-2 border-gray-300 rounded-lg p-2.5 mt-2 cursor-pointer">
+                  <input type="file" id="image" @change="handleFileUpload($event)" style="display: none;">
+                  <span v-if="!imageFile">{{ imagePlaceholder }}</span>
+                  <span v-else>{{ imageFile.name }}</span>
+              </label>                
+          </div>
+          </div>
+          <div class="flex flex-col mt-6">
+              <label for="description" class="text-lg font-semibold">Описание проекта</label>
+              <textarea id="text" v-model="body" class="border-2 border-gray-300 rounded-lg p-2.5 mt-2" rows="10" placeholder="Введите текст"></textarea>
+          </div>
 
-          
-        </form>
-    </div>
+<button type="submit" @click="handleSubmit" class="bg-black text-white rounded-lg p-2.5 mt-6 cursor-pointer w-full sm:w-96 justify-right text-center">Создать проект</button>
+
+        
+      </form>
+  </div>
 </template>
-
 <script>
 import { ref } from 'vue';
 import gql from 'graphql-tag';

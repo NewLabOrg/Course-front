@@ -1,6 +1,6 @@
 <template>
   <div class="container font-montserrat">
-    <div class="border mx-auto mt-12 rounded-xl w-1/2">
+    <div class="border mx-auto mt-12 rounded-xl sm:w-1/2">
       <div class="border-b">
         <h1 class="text-xl font-bold p-4">Завершение создвания профиля</h1>
       </div>
@@ -27,7 +27,7 @@
           <ul class="font-bold text-xl">
             Ограничения ответственности
           </ul>
-          <li>
+          <li class="mb-4">
             Мы не несем ответственности за любой ущерб, прямой или косвенный,
             возникший в результате использования нашего сайта. Мы не гарантируем
             точность, полноту или актуальность информации на нашем сайте.
@@ -37,14 +37,14 @@
       <div class="sm:flex justify-between container mx-auto sm:w-96 my-6">
         <p
           @click="beforestep"
-          class="focus:ring-4 bg-gray-300 text-gray-10 cursor-pointer focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto my-2 px-5 py-2.5 text-center"
+          class="focus:ring-4 bg-gray-300 text-gray-10 cursor-pointer focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto my-2 px-5 py-2.5 text-center"
         >
           Вернуться назад
         </p>
         <button
           @click="registerAndAuthenticate"
           type="submit"
-          class="text-white bg-black focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-black dark:hover:bg-black dark:focus:ring-black"
+          class="text-white bg-black focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm  sm:w-auto my-2 px-5 py-2.5 text-center dark:bg-black dark:hover:bg-black dark:focus:ring-black"
         >
           Создать профиль
         </button>
